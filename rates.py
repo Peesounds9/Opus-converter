@@ -173,6 +173,11 @@ def load_cached_rates() -> tuple[dict[str, float], dict[str, Any]]:
     return rates or {}, meta or {}
 
 
+def read_meta() -> dict[str, Any]:
+    """Public accessor for the rate-cache metadata block."""
+    return _read_json(SETTINGS.meta_file, {}) or {}
+
+
 # ----- fetch ----------------------------------------------------------------
 
 def _fetch_primary(base: str) -> dict[str, float]:
