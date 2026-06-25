@@ -6,5 +6,9 @@ builder = "NIXPACKS"
 startCommand = "python main.py"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
-healthcheckPath = "/"
-healthcheckTimeout = 30
+
+# Healthcheck intentionally omitted. The bot is a pure Telegram worker — it
+# doesn't serve HTTP. main.py starts a tiny aiohttp-less HTTP listener on
+# PORT (default 8080) just so Railway's healthcheck has *something* to hit;
+# Railway's dashboard may still complain about the missing healthcheckPath
+# even with this server running, which is harmless.
