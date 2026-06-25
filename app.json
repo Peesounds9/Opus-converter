@@ -1,0 +1,26 @@
+{
+  "name": "Opus Currency Converter",
+  "description": "Telegram bot for converting between every world currency, with auto-refreshing rates.",
+  "repository": "https://github.com/Peesounds9/Opus-converter",
+  "keywords": ["telegram", "bot", "currency", "converter", "python"],
+  "env": {
+    "TELEGRAM_BOT_TOKEN": {
+      "description": "Token issued by @BotFather on Telegram.",
+      "required": true
+    },
+    "EXCHANGE_API_KEY": {
+      "description": "Free API key from https://www.exchangerate-api.com (optional; falls back to public endpoint).",
+      "required": false
+    },
+    "RATES_REFRESH_MINUTES": {
+      "description": "How often to refresh exchange rates (minutes).",
+      "required": false,
+      "value": "60"
+    },
+    "BASE_CURRENCY": {
+      "description": "Base currency for storage (ISO 4217).",
+      "required": false,
+      "value": "USD"
+    }
+  }
+}
