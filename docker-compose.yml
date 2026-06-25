@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  opus-bot:
+    build: .
+    image: opus-converter:latest
+    container_name: opus-converter
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os, sys; sys.exit(0 if os.getenv('TELEGRAM_BOT_TOKEN') else 1)"]
+      interval: 5m
+      timeout: 10s
+      retries: 3
