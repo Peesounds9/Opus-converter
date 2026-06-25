@@ -33,6 +33,7 @@ class Settings:
     base_currency: str
     rates_file: Path
     meta_file: Path
+    healthcheck_port: int
 
     @property
     def has_token(self) -> bool:
@@ -47,6 +48,9 @@ def load_settings() -> Settings:
         base_currency=os.getenv("BASE_CURRENCY", "USD").strip().upper(),
         rates_file=DATA_DIR / "rates.json",
         meta_file=DATA_DIR / "rates_meta.json",
+        # Railway (and most PaaS providers) expose a PORT env var for HTTP
+        # healthchecks. Disabled when PORT is 0 or unset to keep local dev clean.
+        healthcheck_port=_int_env("PORT", 0),
     )
 
 
