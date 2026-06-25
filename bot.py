@@ -180,7 +180,7 @@ def perform_conversion(amount: float, from_ccy: str, to_ccy: str) -> tuple[str, 
         # Try a one-shot fetch in case the scheduler hasn't run yet.
         try:
             rate_map = rates_mod.refresh_rates(force=True)
-            meta = rates_mod._read_json(SETTINGS.meta_file, {})
+            meta = rates_mod.read_meta()
         except Exception as exc:  # noqa: BLE001
             return f"⚠️ Couldn't fetch rates: {exc}", False
 
