@@ -94,10 +94,15 @@ git push heroku main
    `EXCHANGE_API_KEY`, optional `RATES_REFRESH_MINUTES`, optional
    `BASE_CURRENCY`).
 3. Railway auto-detects Python via Nixpacks; no extra config required.
-   `railway.toml` is included as a fallback. The bot runs as a long-lived
-   worker (`python main.py`) — no web port needed.
-4. Watch logs; you should see `Starting Opus currency bot...` and the
-   initial rate fetch.
+   `railway.toml` is included as a fallback.
+4. The bot starts a tiny stdlib HTTP healthcheck listener on `$PORT` (Railway
+   sets this automatically). It answers `/`, `/health`, `/healthz`, and
+   `/status` with a JSON snapshot of the rate cache. This keeps Railway
+   happy and gives you a quick way to verify the deploy without opening
+   Telegram.
+5. Watch logs; you should see `Starting Opus currency bot...`,
+   `Healthcheck server listening on 0.0.0.0:<port>`, and the initial rate
+   fetch.
 
 ## Usage inside Telegram
 
