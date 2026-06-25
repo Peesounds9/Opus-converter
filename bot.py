@@ -38,6 +38,7 @@ from telegram.ext import (
 
 from config import SETTINGS
 import rates as rates_mod
+import healthcheck
 
 log = logging.getLogger(__name__)
 
@@ -436,6 +437,7 @@ def main() -> None:
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
     log.info("Starting Opus currency bot. Refresh every %d min.", SETTINGS.refresh_minutes)
+    healthcheck.start_healthcheck_server()
     app = build_application()
     install_scheduler(app)
     app.post_init = post_init
