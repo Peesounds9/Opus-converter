@@ -87,6 +87,18 @@ heroku config:set TELEGRAM_BOT_TOKEN=... EXCHANGE_API_KEY=...
 git push heroku main
 ```
 
+**Railway:**
+
+1. New Project → Deploy from GitHub → pick `Peesounds9/Opus-converter`.
+2. Add environment variables (`TELEGRAM_BOT_TOKEN`, optional
+   `EXCHANGE_API_KEY`, optional `RATES_REFRESH_MINUTES`, optional
+   `BASE_CURRENCY`).
+3. Railway auto-detects Python via Nixpacks; no extra config required.
+   `railway.toml` is included as a fallback. The bot runs as a long-lived
+   worker (`python main.py`) — no web port needed.
+4. Watch logs; you should see `Starting Opus currency bot...` and the
+   initial rate fetch.
+
 ## Usage inside Telegram
 
 Once the bot is running, send it `/start`.
@@ -111,6 +123,11 @@ public fallback, then keeps serving from the on-disk cache if both fail —
 so a transient API outage doesn't take the bot offline. Cache files live in
 `data/rates.json` and `data/rates_meta.json` and are persisted across
 restarts.
+
+> **Railway / ephemeral hosts:** the local `data/` cache is wiped on
+> redeploy. To keep it, add a Railway Volume mounted at `/app/data`. Otherwise
+> the bot just re-fetches on first request, which is fine — it just costs
+> one extra API call.
 
 ## Development notes
 
